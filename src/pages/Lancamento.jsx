@@ -1,7 +1,9 @@
+import LancamentoForm from "../components/forms/LancamentoForm";
+
 export const Lancamento = () => {
     return ( 
         <div>
-            Lançamento
+            <LancamentoForm />
         </div>
      );
 }

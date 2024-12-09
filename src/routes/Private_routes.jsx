@@ -15,7 +15,7 @@ export const PrivateRoutes = () => {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/dashboard" element={<PainelLayout />}>
-          <Route index element={<Navigate to="todos" />} />
+          <Route element={<Navigate to="todos" />} />
           <Route path="todos" element={<Todos />} />
           <Route path="receitas" element={<Receitas />} />
           <Route path="despesas" element={<Despesas />} />
@@ -27,6 +27,7 @@ export const PrivateRoutes = () => {
         <Route path="/lancamento" element={<Lancamento />} />
       </Route>
       <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<Navigate to="dashboard" />} />
     </Routes>
   );
 };

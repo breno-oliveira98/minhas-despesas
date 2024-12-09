@@ -14,7 +14,7 @@ export const Sidebar = ({children}) => {
             <h1 className="text-lg font-semibold">MENU</h1>
           </div>
           <ul className="mt-4">
-            <Link to={"/dashboard"}>
+            <Link to={"/dashboard/todos"}>
                 <li className="flex items-center p-4 gap-2 hover:bg-gray-100 cursor-pointer">
                 <MdDashboard className="text-gray-600" size={24}/>
                   <span>Painel</span>

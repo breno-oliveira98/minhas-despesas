@@ -4,12 +4,12 @@ import { formatToBRL } from "../../../utils/BRL";
 import { lancamentos } from "../../../database/lancamentos";
 import { capitalizeWords } from "../../../utils/CapitalizeWords";
 import { formatDateToBrazilian } from "../../../utils/Date";
-lancamentos
-
+import { IoMdCheckmarkCircleOutline, IoMdTime } from "react-icons/io";
+import { Tooltip } from "react-tooltip";
+import { IoAlertCircleOutline } from "react-icons/io5";
+import { TbEdit, TbTrash } from "react-icons/tb";
 
 export const Todos = () => {
-  
-
   return (
     <div>
       {lancamentos.length > 0 ? (
@@ -17,25 +17,66 @@ export const Todos = () => {
           <table className="min-w-full table-auto border-collapse">
             <thead>
               <tr className="bg-gray-100">
-                  <th className="px-4 py-2 text-left border-b">Titulo</th>
-                  <th className="px-4 py-2 text-left border-b">Tipo</th>
-                  <th className="px-4 py-2 text-left border-b">Valor</th>
-                  <th className="px-4 py-2 text-left border-b">Vencimento</th>
-                  <th className="px-4 py-2 text-left border-b">Categoria</th>
-                  <th className="px-4 py-2 text-left border-b">Frequência</th>
-                  <th className="px-4 py-2 text-left border-b">Parcelas</th>
+                <th className="px-4 py-2 text-left border-b">Titulo</th>
+                <th className="px-4 py-2 text-left border-b">Tipo</th>
+                <th className="px-4 py-2 text-left border-b">Valor</th>
+                <th className="px-4 py-2 text-left border-b">Vencimento</th>
+                <th className="px-4 py-2 text-left border-b">Categoria</th>
+                <th className="px-4 py-2 text-left border-b">Frequência</th>
+                <th className="px-4 py-2 text-left border-b">Parcelas</th>
+                <th className="px-4 py-2 text-left border-b">Status</th>
+                <th className="px-4 py-2 text-left border-b">Ações</th>
               </tr>
             </thead>
             <tbody>
               {lancamentos.map((conta) => (
                 <tr className="hover:bg-gray-50" key={conta.id}>
                   <td className="px-4 py-2 border-b">{conta.title}</td>
-                  <td className="px-4 py-2 border-b">{capitalizeWords(conta.type)}</td>
-                  <td className="px-4 py-2 border-b">{formatToBRL(conta.amount)}</td>
-                  <td className="px-4 py-2 border-b">{formatDateToBrazilian(conta.date)}</td>
+                  <td className="px-4 py-2 border-b">
+                    {capitalizeWords(conta.type)}
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    {formatToBRL(conta.amount)}
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    {formatDateToBrazilian(conta.date)}
+                  </td>
                   <td className="px-4 py-2 border-b">{conta.category}</td>
-                  <td className="px-4 py-2 border-b">{capitalizeWords(conta.frequencia)}</td>
+                  <td className="px-4 py-2 border-b">
+                    {capitalizeWords(conta.frequencia)}
+                  </td>
                   <td className="px-4 py-2 border-b">{conta.parcelas}</td>
+                  <td className="px-4 py-2 border-b">
+                    <div className="flex">
+                      <button className="my-check">
+                        <IoMdCheckmarkCircleOutline size={24} fill="green" />
+                        <Tooltip
+                          anchorSelect=".my-check"
+                          content="Pago"
+                        />
+                      </button>
+                      <button className="my-time">
+                      <IoMdTime size={24} fill="orange" />
+                        <Tooltip
+                          anchorSelect=".my-time"
+                          content="No prazo"
+                        />
+                      </button>
+                      <button className="my-alert">
+                      <IoAlertCircleOutline size={24} color="red" />
+                        <Tooltip
+                          anchorSelect=".my-alert"
+                          content="Vencida"
+                        />
+                      </button>
+                    </div>
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    <div className="flex gap-2">
+                      <TbEdit onClick={() => alert(`item ${conta.id} editado`)} size={22} className="cursor-pointer hover:text-yellow-300" />
+                      <TbTrash onClick={() => alert(`item ${conta.id} excluido`)} size={22} className="cursor-pointer hover:text-red-600"/>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>

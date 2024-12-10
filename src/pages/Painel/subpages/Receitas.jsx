@@ -4,6 +4,10 @@ import { lancamentos } from "../../../database/lancamentos";
 import { formatToBRL } from "../../../utils/BRL";
 import { capitalizeWords } from "../../../utils/CapitalizeWords";
 import { formatDateToBrazilian } from "../../../utils/Date";
+import { TbEdit, TbTrash } from "react-icons/tb";
+import { Tooltip } from "react-tooltip";
+import { IoAlertCircleOutline } from "react-icons/io5";
+import { IoMdCheckmarkCircleOutline, IoMdTime } from "react-icons/io";
 
 export const Receitas = () => {
   const receitas = lancamentos.filter((lancamento) => lancamento.type === 'receita').map((lancamento) => lancamento)
@@ -22,6 +26,8 @@ export const Receitas = () => {
                   <th className="px-4 py-2 text-left border-b">Categoria</th>
                   <th className="px-4 py-2 text-left border-b">Frequência</th>
                   <th className="px-4 py-2 text-left border-b">Parcelas</th>
+                  <th className="px-4 py-2 text-left border-b">Status</th>
+                <th className="px-4 py-2 text-left border-b">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -34,7 +40,37 @@ export const Receitas = () => {
                   <td className="px-4 py-2 border-b">{conta.category}</td>
                   <td className="px-4 py-2 border-b">{capitalizeWords(conta.frequencia)}</td>
                   <td className="px-4 py-2 border-b">{conta.parcelas}</td>
-
+                  <td className="px-4 py-2 border-b">
+                    <div className="flex">
+                      <button className="my-check">
+                        <IoMdCheckmarkCircleOutline size={24} fill="green" />
+                        <Tooltip
+                          anchorSelect=".my-check"
+                          content="Pago"
+                        />
+                      </button>
+                      <button className="my-time">
+                      <IoMdTime size={24} fill="orange" />
+                        <Tooltip
+                          anchorSelect=".my-time"
+                          content="No prazo"
+                        />
+                      </button>
+                      <button className="my-alert">
+                      <IoAlertCircleOutline size={24} color="red" />
+                        <Tooltip
+                          anchorSelect=".my-alert"
+                          content="Vencida"
+                        />
+                      </button>
+                    </div>
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    <div className="flex gap-2">
+                      <TbEdit onClick={() => alert(`item ${conta.id} editado`)} size={22} className="cursor-pointer hover:text-yellow-300" />
+                      <TbTrash onClick={() => alert(`item ${conta.id} excluido`)} size={22} className="cursor-pointer hover:text-red-600"/>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
